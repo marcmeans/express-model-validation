@@ -1,0 +1,15 @@
+### VisualStudioCode ###
+
+dist
+typings
+src/server/**/*.js
+src/server/**/*.map
+test/*.js
+!test/common.js
+test/*.map
+src/app.js
+src/app.js.map
+coverage
+typings
+node_modules/
+
