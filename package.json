@@ -1,12 +1,14 @@
 {
   "name": "express-model-validation",
-  "version": "1.0.0",
-  "main": "./dist/index",
+  "author": "Marc Means",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "typings": "./dist/index",
   "dependencies": {
     "@types/express": "^4.0.34",
     "@types/joi": "^9.0.33",
     "@types/lodash": "^4.14.42",
-	"express": "4.14.0",
+    "express": "4.14.0",
     "lodash": "^4.9.0",
     "joi": "^10.0.1"
   },

@@ -19,7 +19,7 @@
 		"use-strict": [
 			true
 		],
-		"no-any": true,
+		"no-any": false,
 		"no-consecutive-blank-lines": true,
 		"no-empty": true,
 		"no-var-keyword": true,

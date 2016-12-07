@@ -46,6 +46,7 @@ gulp.task('copy-assets', ['clean'], () => {
 	return gulp
 		.src([
 			src,
+			src + '.d.ts',
 			'!' + src + '.ts',
 			'package.json',
 			'.npmrc',
