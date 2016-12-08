@@ -2,23 +2,28 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
 import { Validator } from './validator';
+import Joi = require('joi');
 
 describe('Validator', () => {
 
 	let _classUnderTest: Validator;
-	let assert = sinon.assert;
+	//let assert = sinon.assert;
 	let expect = chai.expect;
-	let _schema;
+	let _schema, _errors, _value;
 
 	describe('bind', () => {
 
 		beforeEach(() => {
 			_schema = { one: 1, two: 2 };
 
+			_errors = undefined;
+			_value =
+			Joi.validate = sinon.stub().yields(_errors, _value);
+
 			_classUnderTest = new Validator();
 		});
 
-		it('should get version from package.json', (done) => {
+		it('should pass', (done) => {
 			_classUnderTest.bind(_schema);
 
 			done();

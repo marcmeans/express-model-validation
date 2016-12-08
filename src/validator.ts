@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 import Joi = require('joi');
 import _ = require('lodash');
-import { ValidationError } from './validation.error';
 
 export class Validator {
 
@@ -15,9 +14,8 @@ export class Validator {
 				req.body._model = model;
 				this.validate(errors, req.body._model, schema);
 
-				if (errors && errors.length === 0) { return next(); }
-
-				return next(new ValidationError(errors, false));
+				if (errors.length === 0) { return next(); }
+				return res.status(400).send({ message: 'Bad Request', errors: errors});
 			};
 		}
 	}
@@ -31,29 +29,29 @@ export class Validator {
 			abortEarly: false
 		};
 
-		Joi.validate(model, schema, joiOptions, (errors, value) => {
-			if (!errors || errors.details.length === 0) { return; }
-			// build validation messages
-			errors.details.forEach((error) => {
-				let errorExists = _.find(errObj, (item: any) => {
-					if (item && item.field === error.path) {
-						item.messages.push(error.message);
-						item.types.push(error.type);
-						return item;
-					}
-					return;
-				});
+		let { error, value } = Joi.validate(model, schema, joiOptions);
 
-				if (!errorExists) {
-					errObj.push({
-						field: error.path,
-						location: location,
-						messages: [error.message],
-						types: [error.type]
-					});
+		if (!error || error.details.length === 0) {
+			_.assignIn(model, value); // joi responses are parsed into JSON
+			return;
+		}
+
+		error.details.forEach((error) => {
+			let errorExists = _.find(errObj, (item: any) => {
+				if (item && item.field === error.path) {
+					item.messages.push(error.message);
+					return item;
 				}
-
+				return;
 			});
+
+			if (!errorExists) {
+				errObj.push({
+					field: error.path,
+					messages: [error.message]
+				});
+			}
+
 		});
 	}
 }
