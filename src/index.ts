@@ -1,4 +1,4 @@
-import { Validator } from './validator';
+import { validator, Validator } from './validator';
 import { ValidationError } from './validation.error';
 
-export { Validator, ValidationError }
+export { validator, Validator, ValidationError }

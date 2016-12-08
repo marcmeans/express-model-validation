@@ -13,7 +13,7 @@ export class Validator {
 				let errors = [];
 				let model = _.extend({}, req.body, req.params);
 				req.body._model = model;
-				this.validate(errors, req.body._model,schema);
+				this.validate(errors, req.body._model, schema);
 
 				if (errors && errors.length === 0) { return next(); }
 
@@ -32,7 +32,7 @@ export class Validator {
 		};
 
 		Joi.validate(model, schema, joiOptions, (errors, value) => {
-
+			if (!errors || errors.details.length === 0) { return; }
 			// build validation messages
 			errors.details.forEach((error) => {
 				let errorExists = _.find(errObj, (item: any) => {
@@ -57,3 +57,4 @@ export class Validator {
 		});
 	}
 }
+export const validator = new Validator();
