@@ -9,7 +9,7 @@ export class Validator {
 				if (!schema) {
 					throw new Error('Please provide a validation schema');
 				} else {
-					req.params._schema = schema;
+					req.body._schema = schema;
 					return next();
 				}
 			},
