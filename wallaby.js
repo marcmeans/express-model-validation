@@ -9,7 +9,7 @@ module.exports = function (wallaby) {
     ],
 
     tests: [
-      'src/api/**/*.spec.ts'
+      'src/**/*.spec.ts'
     ],
 
     filesWithNoCoverageCalculated: [
