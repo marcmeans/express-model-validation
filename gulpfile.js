@@ -45,9 +45,7 @@ gulp.task('build', ['lint', 'copy-assets'], () => {
 gulp.task('copy-assets', ['clean'], () => {
 	return gulp
 		.src([
-			src,
-			src + 'index.d.ts',
-			'!' + src + '.ts',
+			src + '*.d.ts',
 			'package.json',
 			'.npmrc',
 			'README.md',
