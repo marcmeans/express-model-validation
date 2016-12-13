@@ -88,7 +88,7 @@ describe('Validator', () => {
 			assert.calledOnce(<sinon.SinonSpy>Joi.validate);
 			assert.calledWith(<sinon.SinonSpy>Joi.validate,
 				{ m: 1 },
-				{ s: 2 },
+				{ s: 2s },
 				{
 					context: { m: 1 },
 					allowUnknown: true,
