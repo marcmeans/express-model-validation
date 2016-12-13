@@ -33,7 +33,7 @@ gulp.task('default', ['serve', 'build'], () => {
 });
 
 gulp.task('build', ['lint', 'copy-assets'], () => {
-	var tsResult = gulp.src(['!' + src + '*.spec.ts', src + '.ts'])
+	var tsResult = gulp.src([src + '.ts'])
 		.pipe(sourcemaps.init())
 		.pipe(tsProject());
 	return tsResult.js
@@ -83,7 +83,7 @@ gulp.task('lint', ['eslint', 'tslint'], () => {
 });
 
 gulp.task('test', ['build'], (done) => {
-	return gulp.src('./dist/**/*.js')
+	return gulp.src('./dist/**/*.spec.js')
 		.pipe(mocha({
 			ui: 'bdd'
 		}))
