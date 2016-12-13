@@ -1,7 +1,7 @@
 {
   "name": "express-model-validation",
   "author": "Marc Means",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "dependencies": {
