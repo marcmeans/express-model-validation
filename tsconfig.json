@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "diagnostics": false,
+    "forceConsistentCasingInFileNames": true,
     "listFiles": true,
     "module": "commonjs",
     "noImplicitAny": false,
