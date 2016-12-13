@@ -1,7 +1,6 @@
 'use strict';
 /* eslint no-unused-vars: "off" */
 var gulp = require('gulp');
-var env = require('gulp-env');
 var eslint = require('gulp-eslint');
 var ts = require('gulp-typescript');
 var tslint = require('tslint');
@@ -34,7 +33,7 @@ gulp.task('default', ['serve', 'build'], () => {
 });
 
 gulp.task('build', ['lint', 'copy-assets'], () => {
-	var tsResult = gulp.src(src + '.ts')
+	var tsResult = gulp.src(['!' + src + '*.spec.ts', src + '.ts'])
 		.pipe(sourcemaps.init())
 		.pipe(tsProject());
 	return tsResult.js
@@ -45,14 +44,10 @@ gulp.task('build', ['lint', 'copy-assets'], () => {
 gulp.task('copy-assets', ['clean'], () => {
 	return gulp
 		.src([
-			src,
-			src + '.d.ts',
-			'!' + src + '.ts',
+			src + '*.d.ts',
 			'package.json',
 			'.npmrc',
-			'README.md',
-			'local.env.json',
-			'process.yml'])
+			'README.md'])
 		.pipe(changed(dest))
 		.pipe(gulp.dest(dest));
 });
@@ -88,8 +83,6 @@ gulp.task('lint', ['eslint', 'tslint'], () => {
 });
 
 gulp.task('test', ['build'], (done) => {
-	env({ file: 'local.env.json' });
-
 	return gulp.src('./dist/**/*.js')
 		.pipe(mocha({
 			ui: 'bdd'
