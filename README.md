@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/marcmeans/express-model-validation.svg?branch=master)](https://travis-ci.org/marcmeans/express-model-validation)
+
 # express-model-validation
 
 TODO
