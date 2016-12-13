@@ -3,7 +3,7 @@ import * as chai from 'chai';
 import { ValidatorMiddleware } from './validator.middleware';
 import Joi = require('joi');
 import _ = require('lodash');
-import { errorBuilder } from './errorBuilder';
+import { errorBuilder } from './errorbuilder';
 
 describe('Validator', () => {
 
@@ -59,7 +59,7 @@ describe('Validator', () => {
 
 		beforeEach(() => {
 			_translatedModel = { x: 1, y: 'q' };
-			_translatedErrors = { what: 1, who: 2, why: 3 };
+			_translatedErrors = { field: 'test' , messages: [{ err: 1, er2: 'abc' }] };
 			Joi.validate = sinon
 				.stub()
 				.returns({ error: undefined, value: _translatedModel });
