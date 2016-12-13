@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/marcmeans/express-model-validation.svg?branch=master)](https://travis-ci.org/marcmeans/express-model-validation)[![Node version](https://img.shields.io/node/v/[NPM-MODULE-NAME].svg?style=flat)](http://nodejs.org/download/)
+[![Build Status](https://travis-ci.org/marcmeans/express-model-validation.svg?branch=master)](https://travis-ci.org/marcmeans/express-model-validation)[![Node version](https://img.shields.io/node/v/express-model-validation.svg?style=flat)](http://nodejs.org/download/)
 
 # express-model-validation
 
