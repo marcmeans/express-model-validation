@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import Joi = require('joi');
 import _ = require('lodash');
-import { errorBuilder } from './errorBuilder';
+import { errorBuilder } from './errorbuilder';
 
 export class ValidatorMiddleware {
 
