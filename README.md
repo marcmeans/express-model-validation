@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/marcmeans/express-model-validation.svg?branch=master)](https://travis-ci.org/marcmeans/express-model-validation)[![Node version](https://img.shields.io/badge/node-6.0.x-green.svg?style=flat)](http://nodejs.org/download/)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/sppy99nvofocx7o0?svg=true)](https://ci.appveyor.com/project/EdibleWeb/express-model-validation)
+
 # express-model-validation
 
 TODO
