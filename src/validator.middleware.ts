@@ -1,17 +1,17 @@
-import { RequestHandler } from 'express';
+import * as express from 'express';
 import Joi = require('joi');
 import _ = require('lodash');
 import { errorBuilder } from './errorbuilder';
 
 export class ValidatorMiddleware {
 
-	public bindModel(req, res, next): RequestHandler {
+	public bindModel(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		let model = _.extend({}, req.body, req.params);
 		req.body._model = model;
-		return next();
+		next();
 	}
 
-	public validateModel(req, res, next): RequestHandler {
+	public validateModel(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		let model = req.body._model;
 		let schema = req.body._schema;
 		let joiOptions = {
@@ -23,10 +23,10 @@ export class ValidatorMiddleware {
 		let { error, value } = Joi.validate(model, schema, joiOptions);
 		if (!error || error.details.length === 0) {
 			req.body._model = value;
-			return next();
-		} else{
+			next();
+		} else {
 			let errors = errorBuilder.buildErrors(error);
-			return res.status(400).send({ message: 'Bad Request', errors: errors });
+			res.status(400).send({ message: 'Bad Request', errors: errors });
 		}
 	}
 
