@@ -24,7 +24,7 @@ describe('Validator', () => {
 				}
 			};
 			let sspy = sinon.spy();
-			_res = <any>{
+			_res = {
 				status: sinon.stub().returns({ send: sspy }),
 				send: sspy
 			};
@@ -72,7 +72,7 @@ describe('Validator', () => {
 			};
 
 			let sspy = sinon.spy();
-			_res = <any>{
+			_res = {
 				status: sinon.stub().returns({ send: sspy }),
 				send: sspy
 			};

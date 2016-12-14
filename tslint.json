@@ -1,6 +1,99 @@
 {
+	"jsRules": {
+		"quotemark": [true, "single", "avoid-escape"],
+		"trailing-comma": [
+			false
+		],
+		"indent": [
+			true
+		],
+		"align": [
+			"arguments",
+			"parameters",
+			"statements",
+			true
+		],
+		"arrow-parens": true,
+		"no-console": [
+			true,
+			"log",
+			"info",
+			"log",
+			"trace",
+			"warn",
+			"error"
+		],
+		"curly": true,
+		"max-line-length": [
+			true,
+			140
+		],
+		"no-var-keyword": true,
+		"no-unused-new": true,
+		"class-name": true,
+		"cyclomatic-complexity": [
+			true
+		],
+		"new-parens": true,
+		"no-consecutive-blank-lines": [
+			true
+		],
+		"no-debugger": true,
+		"no-duplicate-variable": true,
+		"no-empty": true,
+		"no-invalid-this": true,
+		"no-reference": true,
+		"no-require-imports": true,
+		"no-shadowed-variable": true,
+		"no-trailing-whitespace": true,
+		"no-switch-case-fall-through": true,
+		"no-unsafe-finally": true,
+		"no-unused-expression": true,
+		"no-use-before-declare": true,
+		"ordered-imports": [
+			true
+		],
+		"radix": true,
+		"object-literal-key-quotes": [
+			"always",
+			true
+		],
+		"object-literal-shorthand": true,
+		"semicolon": [
+			"always",
+			true
+		],
+		"switch-default": true,
+		"restrict-plus-operands": true,
+		"triple-equals": [
+			"allow-null-check",
+			"allow-undefined-check",
+			true
+		],
+		"variable-name": [
+			"allow-leading-underscore",
+			"allow-pascal-case",
+			true
+		],
+		"whitespace": [
+			"check-branch",
+			"check-decl",
+			"check-module",
+			"check-operator",
+			"check-separator",
+			"check-type",
+			"check-typecast",
+			true
+		]
+	},
 	"rules": {
 		"no-unused-expression": true,
+		"no-debugger": true,
+		"no-console": [
+			true,
+			"log",
+			"error"
+		],
 		"no-duplicate-variable": true,
 		"no-duplicate-key": true,
 		"no-unused-variable": [
@@ -19,8 +112,8 @@
 		"use-strict": [
 			true
 		],
-		"no-any": false,
-		"no-consecutive-blank-lines": true,
+		"no-any": true,
+		"no-consecutive-blank-lines": [true, 2],
 		"no-empty": true,
 		"no-var-keyword": true,
 		"no-var-requires": true,

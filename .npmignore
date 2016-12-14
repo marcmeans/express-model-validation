@@ -1,10 +1,6 @@
 node_modules/
-*.log
-
 src/
-test/
 gulpfile.js
 tsconfig.json
 tslint.json
-typings.json
-dist/test
+*.log
