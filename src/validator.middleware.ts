@@ -15,7 +15,7 @@ export class ValidatorMiddleware {
 		let model = req.body._model;
 		let schema = req.body._schema;
 		let joiOptions = {
-			context: model,
+			context: req,
 			allowUnknown: true,
 			abortEarly: false
 		};

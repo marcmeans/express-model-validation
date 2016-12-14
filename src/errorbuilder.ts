@@ -4,9 +4,9 @@ import _ = require('lodash');
 export class ErrorBuilder {
 
 	public buildErrors(joiErrors: Joi.ValidationError): Array<{ field: string, messages: string[] }> {
-		let translatedErrors;
+		let translatedErrors = [];
 		joiErrors.details.forEach((error) => {
-			let errorExists = _.find(translatedErrors, (item: any) => {
+			let errorExists = _.find(joiErrors, (item: any) => {
 				if (item && item.field === error.path) {
 					item.messages.push(error.message);
 					return item;

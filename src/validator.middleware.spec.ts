@@ -90,7 +90,7 @@ describe('Validator', () => {
 				{ m: 1 },
 				{ s: 2 },
 				{
-					context: { m: 1 },
+					context: _req,
 					allowUnknown: true,
 					abortEarly: false
 				});
