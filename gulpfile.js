@@ -1,3 +1,4 @@
+require('ts-node/register');
 let gulp = require('gulp');
 let ts = require('gulp-typescript');
 let tslint = require('tslint');
@@ -7,7 +8,6 @@ let sourcemaps = require('gulp-sourcemaps');
 let mocha = require('gulp-mocha');
 let plumber = require('gulp-plumber');
 let gutil = require('gulp-util');
-let changed = require('gulp-changed');
 
 let src = 'src/**/*',
 	dest = 'dist',
@@ -26,7 +26,7 @@ gulp.src = function () {
 		}));
 };
 
-gulp.task('build', ['lint', 'copy-assets'], () => {
+gulp.task('build', ['clean'], () => {
 	let tsResult = gulp.src([src + '.ts'])
 		.pipe(sourcemaps.init())
 		.pipe(tsProject());
@@ -35,26 +35,8 @@ gulp.task('build', ['lint', 'copy-assets'], () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('copy-assets', ['clean'], () => {
-	return gulp
-		.src([
-			src + '*.d.ts',
-			'package.json',
-			'.npmrc',
-			'README.md'])
-		.pipe(changed(dest))
-		.pipe(gulp.dest(dest));
-});
-
-gulp.task('watch', () => {
-	gulp.watch([src + '.ts'], ['build']).on('change', (e) => {
-		console.log('TypeScript file ' + e.path + ' has been changed.'
-			+ 'Compiling.');
-	});
-});
-
 gulp.task('lint', () => {
-	let tsResult = tsProject.src()
+	return tsProject.src()
 		.pipe(gulpTslint({
 			formatter: 'verbose',
 			program: program
@@ -63,12 +45,10 @@ gulp.task('lint', () => {
 			emitError: false,
 			reportLimit: 20
 		}));
-	return tsResult.js;
 });
 
-
-gulp.task('test', ['build'], (done) => {
-	return gulp.src('./dist/**/*.spec.js')
+gulp.task('test', ['lint'], () => {
+	return gulp.src(src + '.spec.ts')
 		.pipe(mocha({
 			ui: 'bdd'
 		}))
@@ -77,12 +57,11 @@ gulp.task('test', ['build'], (done) => {
 		})
 		.once('end', () => {
 			process.exit();
-			done();
 		});
 
 });
 
-gulp.task('clean', [], () => {
+gulp.task('clean', () => {
 	console.log('Cleaning all files in build folder');
 	return gulp.src(dest + '/*', { read: false }).pipe(clean());
 });
