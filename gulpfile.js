@@ -1,22 +1,20 @@
-'use strict';
-/* eslint no-unused-vars: "off" */
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var ts = require('gulp-typescript');
-var tslint = require('tslint');
-var program = tslint.createProgram('./tsconfig.json');
-var gulpTslint = require('gulp-tslint');
-var clean = require('gulp-clean');
-var sourcemaps = require('gulp-sourcemaps');
-var tsProject = ts.createProject('tsconfig.json');
-var mocha = require('gulp-mocha');
-var nodemon = require('gulp-nodemon');
-var src = 'src/**/*', dest = 'dist';
-var plumber = require('gulp-plumber');
-var gutil = require('gulp-util');
-const changed = require('gulp-changed');
+require('ts-node/register');
+let gulp = require('gulp');
+let ts = require('gulp-typescript');
+let tslint = require('tslint');
+let gulpTslint = require('gulp-tslint');
+let clean = require('gulp-clean');
+let sourcemaps = require('gulp-sourcemaps');
+let mocha = require('gulp-mocha');
+let plumber = require('gulp-plumber');
+let gutil = require('gulp-util');
 
-var gulpSrc = gulp.src;
+let src = 'src/**/*',
+	dest = 'dist',
+	gulpSrc = gulp.src,
+	program = tslint.createProgram('./tsconfig.json'),
+	tsProject = ts.createProject('tsconfig.json');
+
 gulp.src = function () {
 	return gulpSrc.apply(gulp, arguments)
 		.pipe(plumber(function (error) {
@@ -28,12 +26,8 @@ gulp.src = function () {
 		}));
 };
 
-gulp.task('default', ['serve', 'build'], () => {
-
-});
-
-gulp.task('build', ['lint', 'copy-assets'], () => {
-	var tsResult = gulp.src([src + '.ts'])
+gulp.task('build', ['clean'], () => {
+	let tsResult = gulp.src([src + '.ts'])
 		.pipe(sourcemaps.init())
 		.pipe(tsProject());
 	return tsResult.js
@@ -41,33 +35,8 @@ gulp.task('build', ['lint', 'copy-assets'], () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('copy-assets', ['clean'], () => {
-	return gulp
-		.src([
-			src + '*.d.ts',
-			'package.json',
-			'.npmrc',
-			'README.md'])
-		.pipe(changed(dest))
-		.pipe(gulp.dest(dest));
-});
-
-gulp.task('watch', () => {
-	gulp.watch([src + '.ts'], ['build']).on('change', (e) => {
-		console.log('TypeScript file ' + e.path + ' has been changed.'
-			+ 'Compiling.');
-	});
-});
-
-gulp.task('eslint', () => {
-	return gulp.src('*.js')
-		.pipe(eslint())
-		.pipe(eslint.format())
-		.pipe(eslint.failAfterError());
-});
-
-gulp.task('tslint', () => {
-	var tsResult = tsProject.src()
+gulp.task('lint', () => {
+	return tsProject.src()
 		.pipe(gulpTslint({
 			formatter: 'verbose',
 			program: program
@@ -76,14 +45,10 @@ gulp.task('tslint', () => {
 			emitError: false,
 			reportLimit: 20
 		}));
-	return tsResult.js;
 });
 
-gulp.task('lint', ['eslint', 'tslint'], () => {
-});
-
-gulp.task('test', ['build'], (done) => {
-	return gulp.src('./dist/**/*.spec.js')
+gulp.task('test', ['lint'], () => {
+	return gulp.src(src + '.spec.ts')
 		.pipe(mocha({
 			ui: 'bdd'
 		}))
@@ -96,7 +61,7 @@ gulp.task('test', ['build'], (done) => {
 
 });
 
-gulp.task('clean', [], () => {
+gulp.task('clean', () => {
 	console.log('Cleaning all files in build folder');
 	return gulp.src(dest + '/*', { read: false }).pipe(clean());
 });
