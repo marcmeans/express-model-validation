@@ -1,15 +1,15 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { validatorMiddleware } from './validator.middleware';
 
 export class Validator {
 
-	public bind(schema: any /* tslint:disable-line */): RequestHandler[] {
+	public bind(schema: any): RequestHandler[] { // tslint:disable-line
 		return [
-			(req, res, next) => {
+			(req: Request, res: Response, next: NextFunction) => {
 				if (!schema) {
 					throw new Error('Please provide a validation schema');
 				} else {
-					req.body._schema = schema;
+					req._schema = schema;
 					return next();
 				}
 			},

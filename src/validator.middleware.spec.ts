@@ -38,7 +38,7 @@ describe('Validator', () => {
 
 			_classUnderTest.bindModel(_req, _res, _next);
 
-			expect(_req.body._model).contain(expected);
+			expect(_req._model).contain(expected);
 			done();
 		});
 
