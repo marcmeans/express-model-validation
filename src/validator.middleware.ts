@@ -1,17 +1,18 @@
-import * as express from 'express';
+import { Response, NextFunction } from 'express';
 import Joi = require('joi');
 import _ = require('lodash');
 import { errorBuilder } from './errorbuilder';
+import { IModelRequest } from './modelrequest';
 
 export class ValidatorMiddleware {
 
-	public bindModel(req: express.Request, res: express.Response, next: express.NextFunction): void {
+	public bindModel(req: IModelRequest, res: Response, next: NextFunction): void {
 		let model = _.extend({}, req.body, req.params);
-		req.body._model = model;
+		req._model = model;
 		next();
 	}
 
-	public validateModel(req: express.Request, res: express.Response, next: express.NextFunction): void {
+	public validateModel(req: IModelRequest, res: Response, next: NextFunction): void {
 		let model = req.body._model;
 		let schema = req.body._schema;
 		let joiOptions = {
