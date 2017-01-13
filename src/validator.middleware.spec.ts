@@ -59,16 +59,14 @@ describe('Validator', () => {
 
 		beforeEach(() => {
 			_translatedModel = { x: 1, y: 'q' };
-			_translatedErrors = { field: 'test' , messages: [{ err: 1, er2: 'abc' }] };
+			_translatedErrors = { field: 'test', messages: [{ err: 1, er2: 'abc' }] };
 			Joi.validate = sinon
 				.stub()
 				.returns({ error: undefined, value: _translatedModel });
 			errorBuilder.buildErrors = sinon.stub().returns(_translatedErrors);
 			_req = {
-				body: {
-					_model: { m: 1 },
-					_schema: { s: 2 }
-				}
+				_model: { m: 1 },
+				_schema: { s: 2 }
 			};
 
 			let sspy = sinon.spy();
@@ -102,7 +100,7 @@ describe('Validator', () => {
 
 			_classUnderTest.validateModel(_req, _res, _next);
 
-			expect(_req.body._model).equals(_translatedModel);
+			expect(_req._model).equals(_translatedModel);
 
 			assert.calledOnce(_next);
 			assert.calledWith(_next, );
@@ -117,7 +115,7 @@ describe('Validator', () => {
 
 			_classUnderTest.validateModel(_req, _res, _next);
 
-			expect(_req.body._model).equals(_translatedModel);
+			expect(_req._model).equals(_translatedModel);
 
 			assert.calledOnce(_next);
 			assert.calledWith(_next, );
