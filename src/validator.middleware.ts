@@ -13,8 +13,8 @@ export class ValidatorMiddleware {
 	}
 
 	public validateModel(req: IModelRequest, res: Response, next: NextFunction): void {
-		let model = req.body._model;
-		let schema = req.body._schema;
+		let model = req._model;
+		let schema = req._schema;
 		let joiOptions = {
 			context: req,
 			allowUnknown: true,
@@ -23,7 +23,7 @@ export class ValidatorMiddleware {
 
 		let { error, value } = Joi.validate(model, schema, joiOptions);
 		if (!error || error.details.length === 0) {
-			req.body._model = value;
+			req._model = value;
 			next();
 		} else {
 			let errors = errorBuilder.buildErrors(error);
