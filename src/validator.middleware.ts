@@ -7,7 +7,7 @@ import { IModelRequest } from './modelrequest';
 export class ValidatorMiddleware {
 
 	public bindModel(req: IModelRequest, res: Response, next: NextFunction): void {
-		let model = _.extend({}, req.body, req.params);
+		let model = _.extend({}, req.body, req.params, req.query);
 		req._model = model;
 		next();
 	}

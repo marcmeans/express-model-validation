@@ -21,6 +21,9 @@ describe('Validator', () => {
 				},
 				params: {
 					paramProp: 'two'
+				},
+				query: {
+					queryProp: 'three'
 				}
 			};
 			let sspy = sinon.spy();
@@ -34,7 +37,7 @@ describe('Validator', () => {
 		});
 
 		it('should place param and body properties on _model', (done) => {
-			let expected = _.extend({}, _req.body, _req.params);
+			let expected = _.extend({}, _req.body, _req.param, _req.query);
 
 			_classUnderTest.bindModel(_req, _res, _next);
 
